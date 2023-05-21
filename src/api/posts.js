@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const getPosts = async () => {
-  const res = await axios.get("http://localhost:7000/posts");
+  const res = await axios.get("http://localhost:1314/posts");
   return res.data;
 };
 
 export const deletePost = async ({ id, token }) => {
-  const res = await axios.delete(`http://localhost:7000/posts/${id}`, {
+  const res = await axios.delete(`http://localhost:1314/posts/${id}`, {
     headers: {
       "x-auth-token": token,
     },
@@ -15,10 +15,15 @@ export const deletePost = async ({ id, token }) => {
 };
 
 export const likePost = async ({ id, token }) => {
-  const res = await axios.post(`http://localhost:7000/likes/${id}`, "", {
+  const res = await axios.post(`http://localhost:1314/likes/${id}`, "", {
     headers: {
       "x-auth-token": token,
     },
   });
+  return res.data;
+};
+
+export const getLikes = async () => {
+  const res = await axios.get("http://localhost:1314/likes");
   return res.data;
 };

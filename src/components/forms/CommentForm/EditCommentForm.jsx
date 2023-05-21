@@ -17,18 +17,29 @@ export function EditCommentForm({ comment, token, setEditing }) {
 
   const { mutate, isLoading } = useMutation(updateComment, {
     onSuccess: (data) => {
-      Swal.fire("Successful", data.msg, "success");
+      Swal.fire({
+        title: "Successfully updated!",
+        text: data.msg,
+        icon: "success",
+        timer: 1000, // Auto close duration in milliseconds
+        showConfirmButton: false,
+      });
       queryClient.invalidateQueries("comments");
       setEditing(false);
     },
     onError: (err) => {
-      Swal.fire("Oops...", err?.response?.data?.msg || "Something went wrong", "error");
+      Swal.fire({
+        title: "Oops...",
+        text: err?.response?.data?.msg || "Something went wrong !",
+        icon: "error",
+        showConfirmButton: true,
+      });
     },
   });
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (updatedComment.length < 1) {
+    if (updatedComment.trim().length === 0) {
       Swal.fire("Oops...", "This field must not be empty!", "error");
     } else {
       mutate({ id: _id, content: updatedComment, token });
@@ -39,9 +50,15 @@ export function EditCommentForm({ comment, token, setEditing }) {
     <>
       <Form onSubmit={onSubmitHandler}>
         <FormGroup className="d-flex">
-          <Input type="textarea" name="content" placeholder="content" onChange={onChangeHandler} value={updatedComment} />
+          <Input
+            type="textarea"
+            name="content"
+            placeholder="content"
+            onChange={onChangeHandler}
+            value={updatedComment}
+          />
           <Button className="ms-2" disabled={isLoading}>
-            {isLoading ? <ScaleLoader color="#36d7b7"  /> : "Save"}
+            {isLoading ? <ScaleLoader color="#36d7b7" /> : "Save"}
           </Button>
         </FormGroup>
       </Form>

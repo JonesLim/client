@@ -31,7 +31,7 @@ export function Register() {
 
   const handleRegister = async (registerData) => {
     const res = await axios.post(
-      "http://localhost:7000/users/register",
+      "http://localhost:1314/users/register",
       registerData
     );
     return res.data;
@@ -44,7 +44,7 @@ export function Register() {
         text: data.msg,
         icon: "success",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Go to Login",
+        confirmButtonText: "Login",
       }).then((result) => {
         if (result.isConfirmed) navigate("/login");
       });
@@ -57,11 +57,11 @@ export function Register() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (user.password !== user.password2) {
-      Swal.fire("Oops...", "Password doesnt match", "error");
+      Swal.fire("Oops...", "Password doesn't match !", "error");
       return;
     }
-    if (user.password2 === "") {
-      Swal.fire("Oops...", "This field must not be empty", "error");
+    if (!user.name || !user.username || !user.password || !user.password2) {
+      Swal.fire("Oops...", "Please fill in all fields !", "error");
       return;
     }
     mutate(user);
@@ -71,8 +71,12 @@ export function Register() {
     <Container>
       <Row>
         <Col md={{ offset: 3, size: 6 }} sm="12" className="py-5">
-          <h1 className="text-center">Register New Account</h1>
-          <Form onSubmit={onSubmitHandler}>
+          <h1 className="text-center">
+            <span className="text-primary" style={{ fontWeight: "bold" }}>
+              Registration
+            </span>
+          </h1>
+          <Form onSubmit={onSubmitHandler} className="text-center">
             {/* {JSON.stringify(user)} */}
             <FormGroup floating>
               <Input
@@ -80,8 +84,9 @@ export function Register() {
                 name="name"
                 placeholder="Name"
                 onChange={onChangeHandler}
+                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
               />
-              <Label>Name</Label>
+              <Label>Full Name As Per IC</Label>
             </FormGroup>
             <FormGroup floating>
               <Input
@@ -89,6 +94,7 @@ export function Register() {
                 name="username"
                 placeholder="Username"
                 onChange={onChangeHandler}
+                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
               />
               <Label>Username</Label>
             </FormGroup>
@@ -98,6 +104,7 @@ export function Register() {
                 name="password"
                 placeholder="Password"
                 onChange={onChangeHandler}
+                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
               />
               <Label>Password</Label>
             </FormGroup>
@@ -107,6 +114,7 @@ export function Register() {
                 name="password2"
                 placeholder="Password"
                 onChange={onChangeHandler}
+                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
               />
               <Label>Confirm Password</Label>
             </FormGroup>

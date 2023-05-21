@@ -40,9 +40,13 @@ export function CommentForm({ post, user }) {
     <Form onSubmit={onSubmitHandler}>
       <FormGroup floating>
         <Input type="textarea" name="content" onChange={onChangeHandler} />
-        <Label for="content">Comment</Label>
+        <Label for="content">Type something in here...</Label>
       </FormGroup>
-      <Button color="info" outline>
+      <Button
+        color="info"
+        outline
+        style={{ display: "block", margin: "0 auto", width: "100%" }}
+      >
         Add Comment
       </Button>
     </Form>

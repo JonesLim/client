@@ -13,7 +13,7 @@ export function EditForm({ setEditing, post, token }) {
 
   const updatePostHandler = async (updatepost) => {
     const res = await axios.put(
-      "http://localhost:7000/posts/" + post._id,
+      "http://localhost:1314/posts/" + post._id,
       updatepost,
       {
         headers: {
@@ -45,13 +45,24 @@ export function EditForm({ setEditing, post, token }) {
       <FormGroup floating>
         <Input
           type="text"
+          name="company"
+          id="company"
+          placeholder="Company"
+          value={updatePost.company}
+          onChange={onChangeHandler}
+        />
+        <Label for="company">Company</Label>
+      </FormGroup>
+      <FormGroup floating>
+        <Input
+          type="text"
           name="title"
           id="title"
           placeholder="Title"
           value={updatePost.title}
           onChange={onChangeHandler}
         />
-        <Label for="title">Title</Label>
+        <Label for="title">Position Title</Label>
       </FormGroup>
       <FormGroup floating>
         <Input
@@ -62,18 +73,45 @@ export function EditForm({ setEditing, post, token }) {
           value={updatePost.content}
           onChange={onChangeHandler}
         />
-        <Label for="content">Content</Label>
+        <Label for="content">Description</Label>
       </FormGroup>
-      <div className="d-flex justify-content-end">
+      <FormGroup floating>
+        <Input
+          type="text"
+          name="mail"
+          id="mail"
+          placeholder="Mail"
+          value={updatePost.mail}
+          onChange={onChangeHandler}
+        />
+        <Label for="mail">Mail</Label>
+      </FormGroup>
+      <FormGroup floating>
+        <Input
+          type="number"
+          name="salary"
+          id="salary"
+          placeholder="Salary"
+          value={updatePost.salary}
+          onChange={onChangeHandler}
+        />
+        <Label for="salary">Salary</Label>
+      </FormGroup>
+
+      <div className="d-flex justify-content-between">
         <Button
           className="me-2"
           color="secondary"
           type="button"
           onClick={() => setEditing(false)}
+          size="lg"
+          style={{ width: "150px" }}
         >
           Cancel
         </Button>
-        <Button color="success">Confirm</Button>
+        <Button color="success" size="lg" style={{ width: "150px" }}>
+          Confirm
+        </Button>
       </div>
     </Form>
   );

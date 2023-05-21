@@ -12,7 +12,15 @@ function App() {
     localStorage.getItem("token")
   );
   return (
-    <>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://jsginc.com/wp-content/uploads/2018/10/bigstock-170353778.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
       <Topnav />
       {token ? <AddForm /> : null}
       <Routes>
@@ -21,7 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

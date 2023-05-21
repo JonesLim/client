@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { ListGroupItem, Button } from "reactstrap";
+import {
+  ListGroupItem,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import { getToken } from "../../utils/helpers";
 import jwt_decode from "jwt-decode";
 import { EditCommentForm } from "../forms/CommentForm/EditCommentForm";
@@ -7,9 +13,16 @@ import { useMutation, useQueryClient } from "react-query";
 import { deleteComment } from "../../api/comments";
 import Swal from "sweetalert2";
 import { ScaleLoader } from "react-spinners";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEllipsisV,
+  faEdit,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function Comment({ comment }) {
   const [editing, setEditing] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const token = getToken();
@@ -27,6 +40,10 @@ export function Comment({ comment }) {
       Swal.fire("Oops...", err.response.data.msg, "error");
     },
   });
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const handleDelete = () => {
     Swal.fire({
@@ -46,8 +63,12 @@ export function Comment({ comment }) {
   };
 
   if (!decoded) {
+    console.log("Decoded user not available:", decoded);
     return null; // or some other fallback UI, e.g. a message to log in or reload the page
   }
+
+  // console.log("Comment user:", comment.user);
+  // console.log("Decoded user ID:", decoded.data._id);
 
   return (
     <ListGroupItem className="d-flex justify-content-between align-items-center">
@@ -61,22 +82,21 @@ export function Comment({ comment }) {
         <p className="mb-0">{comment.content}</p>
       )}
       {comment.user === decoded.data._id ? (
-        <div className={editing ? "d-none" : "d-flex align-items-center"}>
-          <Button
-            color="warning"
-            className="btn-sm py-0 me-2"
-            onClick={() => setEditing(true)}
-          >
-            Edit
-          </Button>
-          <Button
-            color="danger"
-            className="btn-sm py-0"
-            onClick={handleDelete}
-          >
-            {isLoading ? <ScaleLoader color="#fff" size={12} /> : "Delete"}
-          </Button>
-        </div>
+        <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+          <DropdownToggle color="link" size="sm" className="p-0">
+            <FontAwesomeIcon icon={faEllipsisV} />
+          </DropdownToggle>
+          <DropdownMenu end>
+            <DropdownItem onClick={() => setEditing(true)}>
+              <FontAwesomeIcon icon={faEdit} className="me-2" />
+              Edit
+            </DropdownItem>
+            <DropdownItem onClick={handleDelete}>
+              <FontAwesomeIcon icon={faTrashAlt} className="me-2" />
+              {isLoading ? <ScaleLoader color="#fff" size={12} /> : "Delete"}
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       ) : null}
     </ListGroupItem>
   );
