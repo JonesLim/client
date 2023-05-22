@@ -3,10 +3,10 @@ import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import Swal from "sweetalert2";
-import { commentPost } from "../../../api/comments";
+import { reviewPost } from "../../../api/reviews";
 
-export function CommentForm({ post, user }) {
-  const [comment, setComment] = useState({
+export function ReviewForm({ post, user }) {
+  const [review, setReview] = useState({
     content: "",
     post: post._id,
     user: user._id,
@@ -19,13 +19,13 @@ export function CommentForm({ post, user }) {
   );
 
   const onChangeHandler = (e) => {
-    setComment({ ...comment, content: e.target.value });
+    setReview({ ...review, content: e.target.value });
   };
 
-  const { mutate } = useMutation(commentPost, {
+  const { mutate } = useMutation(reviewPost, {
     onSuccess: (data) => {
       Swal.fire("Success", data.msg, "success");
-      queryClient.invalidateQueries("comments");
+      queryClient.invalidateQueries("reviews");
     },
     onError: (err) => {
       Swal.fire("Oops...", err.response.data.msg, "error");
@@ -34,7 +34,7 @@ export function CommentForm({ post, user }) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    mutate({ comment, token, id: post._id });
+    mutate({ review, token, id: post._id });
   };
   return (
     <Form onSubmit={onSubmitHandler}>
@@ -47,7 +47,7 @@ export function CommentForm({ post, user }) {
         outline
         style={{ display: "block", margin: "0 auto", width: "100%" }}
       >
-        Add Comment / Review
+        Add Review
       </Button>
     </Form>
   );

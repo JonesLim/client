@@ -31,7 +31,7 @@ export function Register() {
 
   const handleRegister = async (registerData) => {
     const res = await axios.post(
-      "http://localhost:1314/users/register",
+      "http://localhost:8899/users/register",
       registerData
     );
     return res.data;
@@ -68,62 +68,79 @@ export function Register() {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col md={{ offset: 3, size: 6 }} sm="12" className="py-5">
-          <h1 className="text-center">
-            <span className="text-primary" style={{ fontWeight: "bold" }}>
-              Registration
-            </span>
-          </h1>
-          <Form onSubmit={onSubmitHandler} className="text-center">
-            {/* {JSON.stringify(user)} */}
-            <FormGroup floating>
-              <Input
-                type="text"
-                name="name"
-                placeholder="Name"
-                onChange={onChangeHandler}
-                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
-              />
-              <Label>Full Name As Per IC</Label>
-            </FormGroup>
-            <FormGroup floating>
-              <Input
-                type="text"
-                name="username"
-                placeholder="Username"
-                onChange={onChangeHandler}
-                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
-              />
-              <Label>Username</Label>
-            </FormGroup>
-            <FormGroup floating>
-              <Input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={onChangeHandler}
-                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
-              />
-              <Label>Password</Label>
-            </FormGroup>
-            <FormGroup floating>
-              <Input
-                type="password"
-                name="password2"
-                placeholder="Password"
-                onChange={onChangeHandler}
-                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
-              />
-              <Label>Confirm Password</Label>
-            </FormGroup>
-            <Button color="primary">
-              {isLoading ? <BeatLoader color="#36d7b7" /> : "Register"}
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "15vh",
+      }}
+    >
+      <Container
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: "20px",
+          borderRadius: "10px",
+          border: "5px solid black",
+        }}
+      >
+        {" "}
+        <Row>
+          <Col md={{ offset: 3, size: 6 }} sm="12" className="py-5">
+            <h1 className="text-center">
+              <span className="text-primary" style={{ fontWeight: "bold" }}>
+                Registration
+              </span>
+            </h1>
+            <Form onSubmit={onSubmitHandler} className="text-center">
+              {/* {JSON.stringify(user)} */}
+              <FormGroup floating>
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  onChange={onChangeHandler}
+                  style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
+                />
+                <Label>Full Name As Per IC</Label>
+              </FormGroup>
+              <FormGroup floating>
+                <Input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={onChangeHandler}
+                  style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
+                />
+                <Label>Username</Label>
+              </FormGroup>
+              <FormGroup floating>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={onChangeHandler}
+                  style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
+                />
+                <Label>Password</Label>
+              </FormGroup>
+              <FormGroup floating>
+                <Input
+                  type="password"
+                  name="password2"
+                  placeholder="Password"
+                  onChange={onChangeHandler}
+                  style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
+                />
+                <Label>Confirm Password</Label>
+              </FormGroup>
+              <Button color="primary">
+                {isLoading ? <BeatLoader color="#36d7b7" /> : "Register"}
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }

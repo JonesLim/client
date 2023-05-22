@@ -14,14 +14,14 @@ import Swal from "sweetalert2";
 import { useMutation, useQueryClient } from "react-query";
 import { ClipLoader } from "react-spinners";
 import { EditForm } from "../forms/EditForm";
-import { CommentForm } from "../forms/CommentForm";
+import { ReviewForm } from "../forms/ReviewForm";
 import { getToken } from "../../utils/helpers";
 import { deletePost, likePost } from "../../api/posts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
-import { CommentsList } from "../Comment";
+import { ReviewsList } from "../Review";
 
 export default function Post({ post }) {
   const [editing, setEditing] = useState(false);
@@ -294,9 +294,9 @@ export default function Post({ post }) {
             md={3}
             style={{ borderLeft: "5px solid black", paddingLeft: "20px" }}
           >
-            <CommentsList postId={post._id} />
+            <ReviewsList postId={post._id} />
             <br />
-            <CommentForm post={post} user={decoded.data} />
+            <ReviewForm post={post} user={decoded.data} />
           </Col>
         )}
       </Row>

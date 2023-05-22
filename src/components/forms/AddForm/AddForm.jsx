@@ -36,7 +36,7 @@ export function AddForm() {
   });
 
   const handlePost = async (postData) => {
-    const res = await axios.post("http://localhost:1314/posts", postData, {
+    const res = await axios.post("http://localhost:8899/posts", postData, {
       headers: {
         "x-auth-token": token,
       },

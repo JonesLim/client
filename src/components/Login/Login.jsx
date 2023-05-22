@@ -30,7 +30,7 @@ export function Login() {
 
   const handleLogin = async (logindata) => {
     const res = await axios.post(
-      "http://localhost:1314/users/login",
+      "http://localhost:8899/users/login",
       logindata
     );
     return res.data;
@@ -41,7 +41,7 @@ export function Login() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (!user.username || !user.password) {
-      Swal.fire("Oops...", `Please fill up all the fields !`, "error");
+      Swal.fire("Oops...", `Please fill up all the fields!`, "error");
       return;
     }
     mutate(user);
@@ -50,8 +50,8 @@ export function Login() {
   const { mutate, isLoading } = useMutation(handleLogin, {
     onSuccess: (data) => {
       Swal.fire({
-        title: "Great !",
-        text: "Successfully login !",
+        title: "Great!",
+        text: "Successfully logged in!",
         icon: "success",
         timer: 1000, // Auto-close timer in milliseconds
         showConfirmButton: false,
@@ -68,43 +68,59 @@ export function Login() {
   });
 
   return (
-    <Container>
-      <Row>
-        <Col md={{ offset: 3, size: 6 }} sm="12" className="py-5">
-          <h1 className="mb-4 text-center">
-            <span className="text-primary" style={{ fontWeight: "bold" }}>
-              Login
-            </span>
-          </h1>
-          <Form onSubmit={onSubmitHandler} className="text-center">
-            <FormGroup floating>
-              <Input
-                onChange={onChangeHandler}
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Username"
-                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
-              />
-              <Label for="username">Username</Label>
-            </FormGroup>
-            <FormGroup floating>
-              <Input
-                onChange={onChangeHandler}
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
-              />
-              <Label for="password">Password</Label>
-            </FormGroup>
-            <Button color="primary">
-              {isLoading ? <ClipLoader color="#36d7b7" size={12} /> : "Login"}
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "25vh",
+      }}
+    >
+      <Container
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: "20px",
+          borderRadius: "10px",
+          border: "5px solid black",
+        }}
+      >
+        <Row>
+          <Col md={{ offset: 3, size: 6 }} sm="12" className="py-5">
+            <h1 className="mb-4 text-center">
+              <span className="text-primary" style={{ fontWeight: "bold" }}>
+                Login
+              </span>
+            </h1>
+            <Form onSubmit={onSubmitHandler} className="text-center">
+              <FormGroup floating>
+                <Input
+                  onChange={onChangeHandler}
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
+                />
+                <Label for="username">Username</Label>
+              </FormGroup>
+              <FormGroup floating>
+                <Input
+                  onChange={onChangeHandler}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  style={{ backgroundColor: "rgba(128, 128, 128, 0.7)" }}
+                />
+                <Label for="password">Password</Label>
+              </FormGroup>
+              <Button color="primary">
+                {isLoading ? <ClipLoader color="#36d7b7" size={12} /> : "Login"}
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }

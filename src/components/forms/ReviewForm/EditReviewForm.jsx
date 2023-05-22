@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Form, Input, Button, FormGroup } from "reactstrap";
 import Swal from "sweetalert2";
-import { updateComment } from "../../../api/comments";
+import { updateReview } from "../../../api/reviews";
 import { ScaleLoader } from "react-spinners";
 
-export function EditCommentForm({ comment, token, setEditing }) {
-  const { _id, content } = comment;
+export function EditReviewForm({ review, token, setEditing }) {
+  const { _id, content } = review;
 
-  const [updatedComment, setUpdatedComment] = useState(content);
+  const [updatedReview, setUpdatedReview] = useState(content);
   const onChangeHandler = (e) => {
-    setUpdatedComment(e.target.value);
+    setUpdatedReview(e.target.value);
   };
 
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(updateComment, {
+  const { mutate, isLoading } = useMutation(updateReview, {
     onSuccess: (data) => {
       Swal.fire({
         title: "Successfully updated!",
@@ -24,7 +24,7 @@ export function EditCommentForm({ comment, token, setEditing }) {
         timer: 1000, // Auto close duration in milliseconds
         showConfirmButton: false,
       });
-      queryClient.invalidateQueries("comments");
+      queryClient.invalidateQueries("reviews");
       setEditing(false);
     },
     onError: (err) => {
@@ -39,10 +39,10 @@ export function EditCommentForm({ comment, token, setEditing }) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (updatedComment.trim().length === 0) {
+    if (updatedReview.trim().length === 0) {
       Swal.fire("Oops...", "This field must not be empty!", "error");
     } else {
-      mutate({ id: _id, content: updatedComment, token });
+      mutate({ id: _id, content: updatedReview, token });
     }
   };
 
@@ -55,7 +55,7 @@ export function EditCommentForm({ comment, token, setEditing }) {
             name="content"
             placeholder="content"
             onChange={onChangeHandler}
-            value={updatedComment}
+            value={updatedReview}
           />
           <Button className="ms-2" disabled={isLoading}>
             {isLoading ? <ScaleLoader color="#36d7b7" /> : "Save"}

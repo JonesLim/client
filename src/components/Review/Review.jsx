@@ -8,9 +8,9 @@ import {
 } from "reactstrap";
 import { getToken } from "../../utils/helpers";
 import jwt_decode from "jwt-decode";
-import { EditCommentForm } from "../forms/CommentForm/EditCommentForm";
+import { EditReviewForm } from "../forms/ReviewForm/EditReviewForm";
 import { useMutation, useQueryClient } from "react-query";
-import { deleteComment } from "../../api/comments";
+import { deleteReview } from "../../api/reviews";
 import Swal from "sweetalert2";
 import { ScaleLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +20,7 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
-export function Comment({ comment }) {
+export function Review({ review }) {
   const [editing, setEditing] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -29,12 +29,12 @@ export function Comment({ comment }) {
   const decoded = token ? jwt_decode(token) : null;
 
   const deleteConfirmationMessage =
-    "Are you sure you want to delete this comment? This action cannot be undone.";
+    "Are you sure you want to delete this review? This action cannot be undone.";
 
-  const { mutate, isLoading } = useMutation(deleteComment, {
+  const { mutate, isLoading } = useMutation(deleteReview, {
     onSuccess: (data) => {
       Swal.fire("Deleted!", data.msg, "success");
-      queryClient.invalidateQueries("comments");
+      queryClient.invalidateQueries("reviews");
     },
     onError: (err) => {
       Swal.fire("Oops...", err.response.data.msg, "error");
@@ -56,7 +56,7 @@ export function Comment({ comment }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        let id = comment._id;
+        let id = review._id;
         mutate({ id, token });
       }
     });
@@ -67,21 +67,20 @@ export function Comment({ comment }) {
     return null; // or some other fallback UI, e.g. a message to log in or reload the page
   }
 
-  // console.log("Comment user:", comment.user);
-  // console.log("Decoded user ID:", decoded.data._id);
+
 
   return (
     <ListGroupItem className="d-flex justify-content-between align-items-center">
       {editing ? (
-        <EditCommentForm
-          comment={comment}
+        <EditReviewForm
+          review={review}
           token={token}
           setEditing={setEditing}
         />
       ) : (
-        <p className="mb-0">{comment.content}</p>
+        <p className="mb-0">{review.content}</p>
       )}
-      {comment.user === decoded.data._id ? (
+      {review.user === decoded.data._id ? (
         <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
           <DropdownToggle color="link" size="sm" className="p-0">
             <FontAwesomeIcon icon={faEllipsisV} />

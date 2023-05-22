@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { getComments } from "../../api/comments";
+import { getReviews } from "../../api/reviews";
 import { useQuery } from "react-query";
 import { ClipLoader } from "react-spinners";
-import { Comment } from "./Comment";
+import { Review } from "./Review";
 import { ListGroup, Button } from "reactstrap";
 
-export function CommentsList({ postId }) {
-  const { data, isLoading } = useQuery("comments", () => getComments(postId));
-  const [showComments, setShowComments] = useState(false);
+export function ReviewsList({ postId }) {
+  const { data, isLoading } = useQuery("reviews", () => getReviews(postId));
+  const [showReviews, setShowReviews] = useState(false);
 
-  const toggleComments = () => {
-    setShowComments((prevShowComments) => !prevShowComments);
+  const toggleReviews = () => {
+    setShowReviews((prevShowReviews) => !prevShowReviews);
   };
 
   if (isLoading) return <ClipLoader />;
@@ -19,22 +19,22 @@ export function CommentsList({ postId }) {
     <>
       <Button
         color="primary"
-        onClick={toggleComments}
+        onClick={toggleReviews}
         className="mb-3"
         style={{ display: "block", margin: "0 auto", width: "100%" }}
       >
-        All Comments & Reviews
+        All Reviews
       </Button>
-      {showComments && (
+      {showReviews && (
         <>
           {data && data.length ? (
             <>
               <ListGroup>
                 {data
-                  .filter((comment) => comment.post === postId)
+                  .filter((review) => review.post === postId)
                   .reverse()
-                  .map((comment) => (
-                    <Comment key={comment._id} comment={comment} />
+                  .map((review) => (
+                    <Review key={review._id} review={review} />
                   ))}
               </ListGroup>
             </>
