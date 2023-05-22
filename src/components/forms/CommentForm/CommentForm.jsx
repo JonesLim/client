@@ -47,7 +47,7 @@ export function CommentForm({ post, user }) {
         outline
         style={{ display: "block", margin: "0 auto", width: "100%" }}
       >
-        Add Comment
+        Add Comment / Review
       </Button>
     </Form>
   );

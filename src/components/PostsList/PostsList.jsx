@@ -61,11 +61,14 @@ export function PostsList() {
       <div className="d-flex justify-content-between align-items-center mb-4 py-5">
         <Input
           type="text"
-          placeholder="Search by Job Position"
+          placeholder="Search by Job Position Title"
           value={searchQuery}
           onChange={handleSearchInputChange}
-          style={{ border: "5px solid black", borderRadius: "20px", padding: "5px" }}
-
+          style={{
+            border: "5px solid black",
+            borderRadius: "20px",
+            padding: "5px",
+          }}
         />
       </div>
       {currentPosts.map((post) => (
@@ -76,7 +79,11 @@ export function PostsList() {
           color="primary"
           onClick={handlePrevClick}
           disabled={currentPage === 1}
-          style={{ width: "100px", border: "5px solid black", borderRadius: "20px" }}
+          style={{
+            width: "100px",
+            border: "5px solid black",
+            borderRadius: "20px",
+          }}
         >
           Previous
         </Button>
@@ -91,7 +98,11 @@ export function PostsList() {
           disabled={
             currentPage === Math.ceil(sortedPosts.length / postsPerPage)
           }
-          style={{ width: "100px", border: "5px solid black", borderRadius: "20px" }}
+          style={{
+            width: "100px",
+            border: "5px solid black",
+            borderRadius: "20px",
+          }}
         >
           Next
         </Button>
@@ -110,7 +121,11 @@ export function PostsList() {
             if (pageNumber >= startPage && pageNumber <= endPage) {
               return (
                 <Button
-                  style={{ width: "200px", border: "5px solid black", borderRadius: "10px" }}
+                  style={{
+                    width: "200px",
+                    border: "5px solid black",
+                    borderRadius: "10px",
+                  }}
                   key={index}
                   color={currentPage === pageNumber ? "primary" : "secondary"}
                   onClick={() => handlePageClick(pageNumber)}

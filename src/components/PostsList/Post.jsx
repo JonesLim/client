@@ -76,7 +76,6 @@ export default function Post({ post }) {
         showConfirmButton: false,
       });
 
-      // invalidate post queries after message duration
       setTimeout(() => {
         queryClient.invalidateQueries("posts");
       }, messageDuration);
@@ -85,7 +84,6 @@ export default function Post({ post }) {
       const errorMessage = error.response?.data?.msg || "Something went wrong";
       const messageDuration = 3000; // message duration in milliseconds
 
-      // show error message
       Swal.fire({
         title: "Oops...",
         text: errorMessage,

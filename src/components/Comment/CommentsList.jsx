@@ -23,14 +23,13 @@ export function CommentsList({ postId }) {
         className="mb-3"
         style={{ display: "block", margin: "0 auto", width: "100%" }}
       >
-        All Comments
+        All Comments & Reviews
       </Button>
       {showComments && (
         <>
           {data && data.length ? (
             <>
               <ListGroup>
-                {/* display the username who commented on the post */}
                 {data
                   .filter((comment) => comment.post === postId)
                   .reverse()
