@@ -13,7 +13,7 @@ export function EditForm({ setEditing, post, token }) {
 
   const updatePostHandler = async (updatepost) => {
     const res = await axios.put(
-      "http://localhost:8899/posts/" + post._id,
+      "https://jp-backend-service.onrender.com/posts/" + post._id,
       updatepost,
       {
         headers: {

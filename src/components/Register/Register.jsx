@@ -31,7 +31,7 @@ export function Register() {
 
   const handleRegister = async (registerData) => {
     const res = await axios.post(
-      "http://localhost:8899/users/register",
+      "https://jp-backend-service.onrender.com/users/register",
       registerData
     );
     return res.data;

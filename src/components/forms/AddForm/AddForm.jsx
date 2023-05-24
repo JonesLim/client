@@ -36,11 +36,15 @@ export function AddForm() {
   });
 
   const handlePost = async (postData) => {
-    const res = await axios.post("http://localhost:8899/posts", postData, {
-      headers: {
-        "x-auth-token": token,
-      },
-    });
+    const res = await axios.post(
+      "https://jp-backend-service.onrender.com/posts",
+      postData,
+      {
+        headers: {
+          "x-auth-token": token,
+        },
+      }
+    );
     return res.data;
   };
   const { mutate, isLoading } = useMutation(handlePost, {
